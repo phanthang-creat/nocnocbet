@@ -38,7 +38,7 @@ const Main = () => {
 
     return (
         <main className="main">
-            <div className="screen-shadow"></div>
+            {/* <div className="screen-shadow"></div> */}
             <Home />
             <About />
             <Skill />
