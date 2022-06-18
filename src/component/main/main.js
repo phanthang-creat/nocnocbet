@@ -12,17 +12,19 @@ import About from "../section/about/about";
 import Skill from "../section/skill/skill";
 import ReSume from "../section/resume/resume";
 import Footer from "../footer/footer";
+import MyModal from "../modal/modal";
 
 const Main = () => {
     const dispatch = useDispatch();
 
-    const about = useSelector(state => state.about);
+    // const about = useSelector(state => state.about);
+    const show = useSelector((state) => state.modal.status);
 
     const [render, setRender] = React.useState(true);
-    console.log("about", about);
 
     // console.log(db)
     const dataCollection = collection(db, "about");
+
 
     React.useEffect(() => {
         const getData = async () => {
@@ -38,12 +40,13 @@ const Main = () => {
 
     return (
         <main className="main">
-            {/* <div className="screen-shadow"></div> */}
+            <div className="screen-shadow"></div>
             <Home />
             <About />
             <Skill />
             <ReSume />
             <Footer />
+            {show && <MyModal />}
         </main>
     );
 };

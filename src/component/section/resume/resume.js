@@ -9,10 +9,9 @@ import { Container } from "reactstrap";
 const ReSume = () => {
     const about = useSelector((state) => state.about.about[0]);
     const experience = useSelector((state) => state.about.about[2]);
-    console.log(experience);
 
     return (
-        <section className="section_about section_resume">
+        <section className="section_about section_resume" id="resume">
             {/* <div className="screen-shadow"></div> */}
             <Container>
                 <div className="section_about__content">

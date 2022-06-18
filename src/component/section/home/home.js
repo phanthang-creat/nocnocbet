@@ -12,16 +12,12 @@ import "./home.scss";
 const Home = () => {
 
     const about = useSelector(state => state.about.about[1]);
-    console.log("about home", about);
 
     return (
-        <section className="section_home">
-            {/* <div className="screen-shadow"></div> */}
+        <section className="section_home show-on-scroll" id="home" >
             <div className="section_home__content">
+
                 <div className="contain banner">
-                    <div className="contain_avatar">
-                        <img src="/background.jpg" alt="avatar" />
-                    </div>
                     <div className="banner__text">
                         <h1>{about.firstName} {about.lastName}</h1>
                         <h2>@noccnocc</h2>

@@ -1,19 +1,37 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { GiCat } from "react-icons/gi";
 import { ImAirplane } from "react-icons/im";
 
-import { FaCat, FaChess, FaCode, FaCoffee, FaGamepad, FaHeadphones, FaHeart } from "react-icons/fa";
+import {
+    FaCat,
+    FaChess,
+    FaCode,
+    FaCoffee,
+    FaGamepad,
+    FaHeadphones,
+} from "react-icons/fa";
 
 import "./about.scss";
 import { Container } from "reactstrap";
+import { setModal } from "../../../redux/reducer/modal";
 
 const About = () => {
     const about = useSelector((state) => state.about.about[1]);
 
+    const dispatch = useDispatch();
+
+    const setShow = (status, type) => {
+        const payload = {
+            status: status,
+            type: type,
+        };
+        dispatch(setModal(payload));
+    };
+
     return (
-        <section className="section_about">
+        <section className="section_about" id="about">
             {/* <div className="screen-shadow"></div> */}
             <Container>
                 <div className="section_about__content">
@@ -60,7 +78,11 @@ const About = () => {
                                 </li>
                                 <li>
                                     <strong>Shopee</strong>
-                                    <span>{about.shoppe}</span>
+                                    <span>
+                                        <a href="https://shopee.vn/tntnocnocshop" target="blank">
+                                            My Shopee
+                                        </a>
+                                    </span>
                                 </li>
                                 <li>
                                     <strong>Address</strong>
@@ -70,13 +92,6 @@ const About = () => {
                                     <strong>Job</strong>
                                     <span>{about.job}</span>
                                 </li>
-                                <li>
-                                    <strong>Relationship</strong>
-                                    <span>
-                                        <FaHeart /> Đức Tài
-
-                                    </span>
-                                </li>
                             </ul>
                         </div>
                         <div className="col-lg-6">
@@ -85,37 +100,55 @@ const About = () => {
                             </div>
                             <div className="interest">
                                 <ul>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "game")}
+                                    >
                                         <p>
                                             <FaGamepad />
                                             <span>Game</span>
                                         </p>
                                     </li>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "music")}
+                                    >
                                         <p>
                                             <FaHeadphones />
                                             <span>Music</span>
                                         </p>
                                     </li>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "travel")}
+                                    >
                                         <p>
                                             <ImAirplane />
                                             <span>Travel</span>
                                         </p>
                                     </li>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "coffee")}
+                                    >
                                         <p>
                                             <FaCoffee />
                                             <span>Coffee</span>
                                         </p>
                                     </li>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "chess")}
+                                    >
                                         <p>
                                             <FaChess />
                                             <span>Chess</span>
                                         </p>
                                     </li>
-                                    <li className="interest_item">
+                                    <li
+                                        className="interest_item"
+                                        onClick={() => setShow(true, "code")}
+                                    >
                                         <p>
                                             <FaCode />
                                             <span>Code</span>

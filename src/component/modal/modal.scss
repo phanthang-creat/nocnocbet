@@ -1,0 +1,151 @@
+@import "../../variable";
+
+.my-modal {
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__overlay {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.4;
+    }
+    &__content {
+        display: flex;
+        transition: all 0.3s ease-in-out;
+        z-index: 100;
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex-direction: column;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 90%;
+        max-width: 1200px;
+        height: 90%;
+        max-height: 900px;
+        &__header {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 50px;
+            position: relative;
+            // max-height: 50px;
+            h2 {
+                color: $primary-color;
+                font-family: 'Pacifico', cursive !important;
+                font-weight: 400;
+                text-transform: capitalize;
+            }
+            button {
+                border: none;
+                background-color: transparent;
+            }
+            .close-btn {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+        }
+        &__body {
+            // flex-grow: 1;
+            background-color: transparent;
+            width: 100%;
+            display: flex;
+            height: 95%;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            &__image {
+                display: flex;
+                flex-flow: row nowrap;
+                transition: all 0.5s ease-in-out;
+            }
+            .image-item {
+                width: 100%;
+                height: 100%;
+            }
+            img {
+                object-fit: cover;
+            }
+        }
+        
+    }
+    .music {
+        max-height: 200px;
+    }
+    .waiting {
+        width: 30% !important;
+        height: 30% !important;
+    }
+}
+
+
+@media all and (max-width: 768px) {
+    .my-modal {
+        &__content {
+            aspect-ratio: 1 / 1.5;
+        // width: 100%;
+            width: 90%;
+        }
+    }
+}
+
+.arrow {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    // transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    border: none;
+    background-color: transparent;
+}
+.right-arrow {
+    right: 0;
+}
+.left-arrow {
+    left: 0;
+}
+._9zm2 {
+    background-position: -162px -98px;
+}
+._9zm1 {
+    background-position: -130px -98px;
+}
+._9zm1, ._9zm2 {
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+}
+._9zm0 {
+    background-image: url("../../../public/bve3a0HeZc8.png");
+}
+
+.disable {
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+.media-player {
+    width: 100%;
+    audio {
+        width: 80%;
+        max-width: 500px;
+        object-fit: cover;
+    }
+}

@@ -13,7 +13,7 @@ const Skill = () => {
     const about = useSelector((state) => state.about.about[1]);
 
     return (
-        <section className="section_about">
+        <section className="section_about" id="skill">
             {/* <div className="screen-shadow"></div> */}
             <Container>
                 <div className="section_about__content">
