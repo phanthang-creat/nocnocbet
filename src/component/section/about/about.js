@@ -46,7 +46,7 @@ const About = () => {
                     <div className="quote">
                         <p>Tình yêu có gì?</p>
                         <p>Có hai con mèo ngồi bên cửa sổ</p>
-                        <p>Một con ngồi yên một con đổi chổ...</p>
+                        <p>Một con ngồi yên một con đổi chỗ...</p>
                         <div className="cat list-icon">
                             <ul>
                                 <li>

@@ -8,7 +8,6 @@ import db from "../../firebase/firebase-config";
 import { collection } from "firebase/firestore";
 import { setModal } from "../../redux/reducer/modal";
 
-
 import "./modal.scss";
 
 const MyModal = () => {
@@ -26,6 +25,69 @@ const MyModal = () => {
   const setShow = (value) => {
     dispatch(setModal(value));
   };
+
+  useEffect(() => {
+    var container = document.querySelector(
+      ".my-modal"
+    );
+    // Swipe Up / Down / Left / Right
+    var initialX = null;
+    var initialY = null;
+  
+    function startTouch(e) {
+      initialX = e.touches[0].clientX;
+      initialY = e.touches[0].clientY;
+    }
+  
+    function moveTouch(e) {
+      if (initialX === null) {
+        return;
+      }
+  
+      if (initialY === null) {
+        return;
+      }
+  
+      var currentX = e.touches[0].clientX;
+      var currentY = e.touches[0].clientY;
+  
+      var diffX = initialX - currentX;
+      var diffY = initialY - currentY;
+  
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        // sliding horizontally
+        if (diffX > 0) {
+          // swiped left
+          setIndexImage(() => {
+            if (indexImage < imageList.length - 1) {
+              return indexImage + 1;
+            }
+            return indexImage;
+          });
+        } else {
+          setIndexImage(() => {
+            if (indexImage > 0) {
+              return indexImage - 1;
+            }
+            return indexImage;
+          });
+          // swiped right
+        }
+      }
+  
+      initialX = null;
+      initialY = null;
+  
+      e.preventDefault();
+    }
+    container.addEventListener("touchstart", startTouch, false);
+    container.addEventListener("touchmove", moveTouch, false);
+  }, [fetching, imageList, indexImage]);
+
+
+
+
+
   useEffect(() => {
     const getData = async () => {
       let tmp = [];
@@ -54,9 +116,6 @@ const MyModal = () => {
                 };
                 xhr.open("GET", url);
                 xhr.send();
-                // tmp.push({
-                //     url: url,
-                // });
               })
               .catch((err) => {
                 console.log("err", err);
@@ -98,9 +157,8 @@ const MyModal = () => {
         }
       ></div>
       <div
-        className={`my-modal__content${fetching ? " waiting" : " "}${
-          type === "music" ? " music" : ""
-        }`}
+        className={`my-modal__content${fetching ? " waiting" : " "}${type === "music" ? " music" : ""
+          }`}
       >
         <div className="my-modal__content__header">
           <h2>{type}</h2>
@@ -136,9 +194,8 @@ const MyModal = () => {
           {fetching === false && type !== "music" && imageList.length > 0 && (
             <>
               <button
-                className={`left-arrow arrow${
-                  indexImage === 0 ? " disable" : ""
-                }`}
+                className={`left-arrow arrow${indexImage === 0 ? " disable" : ""
+                  }`}
                 onClick={() => {
                   setIndexImage(indexImage - 1);
                 }}
@@ -146,9 +203,8 @@ const MyModal = () => {
                 <div className="_9zm0 _9zm1"></div>
               </button>
               <button
-                className={`right-arrow arrow${
-                  indexImage === imageList.length - 1 ? " disable" : ""
-                }`}
+                className={`right-arrow arrow${indexImage === imageList.length - 1 ? " disable" : ""
+                  }`}
                 onClick={() => {
                   setIndexImage(indexImage + 1);
                 }}
