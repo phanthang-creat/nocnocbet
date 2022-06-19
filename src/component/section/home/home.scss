@@ -4,10 +4,10 @@
     min-height: 700px;
     position: relative;
     z-index: 3;
-    // background: url("../../../../public/top_sider_bg.jpg");
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // background-position: center center;
+    background: url("../../../../public/top_sider_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -15,9 +15,9 @@
     .contain {
         margin: 0 auto;
         display: table;
-        // background: #252A2E;
-        // box-shadow: -1rem 0 3rem rgb(0 0 0 / 20%);
-        // border-radius: 15px;
+        background: #252A2E;
+        box-shadow: -1rem 0 3rem rgb(0 0 0 / 20%);
+        border-radius: 15px;
         padding: 50px;
         padding-top: 0px;
         margin-top: 150px;

@@ -25,7 +25,6 @@ const Main = () => {
     // console.log(db)
     const dataCollection = collection(db, "about");
 
-
     React.useEffect(() => {
         const getData = async () => {
             const data = await getDocs(dataCollection);
@@ -40,7 +39,7 @@ const Main = () => {
 
     return (
         <main className="main">
-            <div className="screen-shadow"></div>
+            {/* <div className="screen-shadow"></div> */}
             <Home />
             <About />
             <Skill />

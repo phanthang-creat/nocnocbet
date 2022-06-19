@@ -18,6 +18,9 @@ const Home = () => {
             <div className="section_home__content">
 
                 <div className="contain banner">
+                    <div className="contain_avatar">
+                        <img src="/background.jpg" alt="avatar" />
+                    </div>
                     <div className="banner__text">
                         <h1>{about.firstName} {about.lastName}</h1>
                         <h2>@noccnocc</h2>

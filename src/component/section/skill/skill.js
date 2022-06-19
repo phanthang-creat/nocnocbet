@@ -1,19 +1,47 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import { GiSkills } from "react-icons/gi";
-import { ImAirplane } from "react-icons/im";
+// import { ImAirplane } from "react-icons/im";
 
-import { FaChess, FaCode, FaCoffee, FaGamepad, FaHeadphones } from "react-icons/fa";
+// import { FaChess, FaCode, FaCoffee, FaGamepad, FaHeadphones } from "react-icons/fa";
 
 import "./skill.scss";
 import { Container } from "reactstrap";
+import { collection, getDocs } from "firebase/firestore";
+import db from "../../../firebase/firebase-config";
 
 const Skill = () => {
-    const about = useSelector((state) => state.about.about[1]);
+
+    const [technical, setTechnical] = React.useState([]);
+
+    const [professional, setProfessional] = React.useState([]);
+
+    const [render, setRender] = React.useState(true);
+
+    // console.log(db)
+    const dataCollection = collection(db, "skill");
+
+
+    React.useEffect(() => {
+        const getData = async () => {
+            const data = await getDocs(dataCollection);
+            // data.docs.map((doc) => {
+            //     console.log(doc.data());
+            // });
+            let tmp = data.docs.map((doc) => doc.data());
+            let technicalSkill = tmp[0].technical.split(",");
+            let professionalSkill = tmp[1].professional.split(",");
+            setTechnical(technicalSkill);
+            setProfessional(professionalSkill);
+        };
+        if (render) {
+            getData();
+            setRender(false);
+        }
+    }, [dataCollection, render]);
 
     return (
-        <section className="section_about" id="skill">
+        <section className="section_about section_skill" id="skill">
             {/* <div className="screen-shadow"></div> */}
             <Container>
                 <div className="section_about__content">
@@ -26,79 +54,37 @@ const Skill = () => {
                         <div className="strikethrough" style={{ width: "11%" }}></div>
                     </div>
                     <div className="row details">
-                        <div className="col-lg-6 details">
+                        <div className="col-lg-6 skill__details">
                             <div className="title">
                                 <h2>Technical Skills</h2>
                             </div>
                             <ul>
-                                <li>
-                                    <strong>Computer</strong>
-                                    <span>Word, Excel, Powerpoint</span>
-                                </li>
-                                <li>
-                                    <strong>Phone</strong>
-                                    <span>{about.phone}</span>
-                                </li>
-                                <li>
-                                    <strong>Email</strong>
-                                    <span>{about.email}</span>
-                                </li>
-                                <li>
-                                    <strong>Shopee</strong>
-                                    <span>{about.shoppe}</span>
-                                </li>
-                                <li>
-                                    <strong>Address</strong>
-                                    <span>{about.address}</span>
-                                </li>
-                                <li>
-                                    <strong>Job</strong>
-                                    <span>{about.job}</span>
-                                </li>
+                                {
+                                    technical.map((item, index) => {
+                                        return (
+                                            <li key={index}>
+                                                <p>{item}</p>
+                                            </li>
+                                        )
+                                    })
+                                }
                             </ul>
                         </div>
-                        <div className="col-lg-6">
-                            <div className="title details">
-                                <h2>My Interest</h2>
+                        <div className="col-lg-6 skill__details">
+                            <div className="title">
+                                <h2>Professional Skills</h2>
                             </div>
                             <div className="interest">
                                 <ul>
-                                    <li className="interest_item">
-                                        <p>
-                                            <FaGamepad />
-                                            <span>Game</span>
-                                        </p>
-                                    </li>
-                                    <li className="interest_item">
-                                        <p>
-                                            <FaHeadphones />
-                                            <span>Music</span>
-                                        </p>
-                                    </li>
-                                    <li className="interest_item">
-                                        <p>
-                                            <ImAirplane />
-                                            <span>Travel</span>
-                                        </p>
-                                    </li>
-                                    <li className="interest_item">
-                                        <p>
-                                            <FaCoffee />
-                                            <span>Coffee</span>
-                                        </p>
-                                    </li>
-                                    <li className="interest_item">
-                                        <p>
-                                            <FaChess />
-                                            <span>Chess</span>
-                                        </p>
-                                    </li>
-                                    <li className="interest_item">
-                                        <p>
-                                            <FaCode />
-                                            <span>Code</span>
-                                        </p>
-                                    </li>
+                                    {
+                                        professional.map((item, index) => {
+                                            return (
+                                                <li key={index}>
+                                                    <p>{item}</p>
+                                                </li>
+                                            )
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </div>
