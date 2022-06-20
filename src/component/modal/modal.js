@@ -93,9 +93,11 @@ const MyModal = () => {
   useEffect(() => {
     const getData = async () => {
       let tmp = [];
+      let length = 0; 
       const listRef = ref(storage, `gs://noccnoccbet.appspot.com/${type}/`);
       listAll(listRef)
         .then(function (list) {
+          length = list.items.length;
           list.items.forEach(function (item) {
             let r = ref(
               storage,
@@ -120,28 +122,28 @@ const MyModal = () => {
                 xhr.send();
               })
               .catch((err) => {
-                console.log("err", err);
                 setErr("Can't get data. Please try again.");
               });
           });
         })
-        .then(function (t) {
+        .then(function () {
           let interval = setInterval(() => {
-            if (tmp.length > 0) { 
+            if (tmp.length === length && tmp.length !== 0) { 
               setImageList(tmp);
               setFetching(false);
               clearInterval(interval);
             }
           }, 100);
           setTimeout(() => {
-            clearInterval(interval);
-            setErr("Can't get data. Please try again.");
-            setFetching(false);
+            if (tmp.length === 0) {
+              clearInterval(interval);
+              setErr("Can't get data. Please try again.");
+              setFetching(false);
+            }
           }, 5000);
         })
         .catch(function (error) {
           setErr("Can't get data. Please try again.");
-          console.log(error);
         })
     };
 
