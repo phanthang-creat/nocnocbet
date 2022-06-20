@@ -21,6 +21,8 @@ const MyModal = () => {
   const [imageList, setImageList] = React.useState([]);
   const [fetching, setFetching] = React.useState(true);
   const [indexImage, setIndexImage] = React.useState(0);
+  const [err, setErr] = React.useState(null);
+
 
   const setShow = (value) => {
     dispatch(setModal(value));
@@ -119,6 +121,7 @@ const MyModal = () => {
               })
               .catch((err) => {
                 console.log("err", err);
+                setErr("Can't get data. Please try again.");
               });
           });
         })
@@ -130,11 +133,14 @@ const MyModal = () => {
               clearInterval(interval);
             }
           }, 100);
-          // setTimeout(() => {
-          //   setImageList(tmp);
-          // }, 1000);
+          setTimeout(() => {
+            clearInterval(interval);
+            setErr("Can't get data. Please try again.");
+            setFetching(false);
+          }, 5000);
         })
         .catch(function (error) {
+          setErr("Can't get data. Please try again.");
           console.log(error);
         })
     };
@@ -192,6 +198,7 @@ const MyModal = () => {
         </div>
         <div className={`my-modal__content__body`}>
           {fetching && <Spinner />}
+          {err && <p className="error">{err}</p>}
           {fetching === false && type !== "music" && imageList.length > 0 && (
             <>
               <button
