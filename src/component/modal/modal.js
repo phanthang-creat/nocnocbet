@@ -122,21 +122,21 @@ const MyModal = () => {
               });
           });
         })
-        .then(function () {
-          setTimeout(() => {
-            setImageList(tmp);
-            setFetching(false);
-          }, 1000);
+        .then(function (t) {
+          let interval = setInterval(() => {
+            if (tmp.length > 0) { 
+              setImageList(tmp);
+              setFetching(false);
+              clearInterval(interval);
+            }
+          }, 100);
+          // setTimeout(() => {
+          //   setImageList(tmp);
+          // }, 1000);
         })
         .catch(function (error) {
           console.log(error);
-        });
-      // const interval = setInterval(() => {
-      //     if (fetching === false) {
-      //         setImageList(tmp);
-      //         clearInterval(interval);
-      //     }
-      // }, 100);
+        })
     };
 
     if (render) {
@@ -162,32 +162,33 @@ const MyModal = () => {
       >
         <div className="my-modal__content__header">
           <h2>{type}</h2>
-          <button
-            className="close-btn"
-            onClick={() =>
-              setShow({
-                status: false,
-                type: "",
-              })
-            }
-          >
-            <svg
-              stroke="currentColor"
-              fill="#fff"
-              strokeWidth="0"
-              viewBox="0 0 24 24"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+          {fetching === false && <button
+              className="close-btn"
+              onClick={() =>
+                setShow({
+                  status: false,
+                  type: "",
+                })
+              }
             >
-              <path
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2"
-                d="M3,3 L21,21 M3,21 L21,3"
-              ></path>
-            </svg>
-          </button>
+              <svg
+                stroke="currentColor"
+                fill="#fff"
+                strokeWidth="0"
+                viewBox="0 0 24 24"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="2"
+                  d="M3,3 L21,21 M3,21 L21,3"
+                ></path>
+              </svg>
+            </button>
+          }
         </div>
         <div className={`my-modal__content__body`}>
           {fetching && <Spinner />}
